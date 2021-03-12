@@ -1,0 +1,5 @@
+.profile__about {
+  display: grid;
+  grid-template-columns: 300px 50px;
+  
+}
