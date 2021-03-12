@@ -1,19 +1,16 @@
 # Проект 4: Место
 
-### Обзор
+**Описание**
 
-* Figma
-* Картинки
+Одностраничный сайт с адаптивной версткой, тематически посвященный путешествиям по России. Работа выполнена студентом Яндекс.Практикума веб-факультета 24 потока.
 
-**Figma**
+[Посмотреть](https://jusstes.github.io/mesto/)
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
-
-**Картинки**
-
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
-
-https://jusstes.github.io/mesto/.
+**Технологии**
+* JavaScript
+* HTML5 & CSS3
+* grid layout;
+* flexbox;
+* media queries for different screen sizes;
+* BEM Nested;
+* font-smoothing.
