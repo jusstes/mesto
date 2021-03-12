@@ -1,6 +1,7 @@
 .profile__about-edit {
-  align-self: center;
+  align-self: end;
   justify-self: center;
+  margin-bottom: 11px;
   padding: 0;
   width: 24px;
   height: 24px;
