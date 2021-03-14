@@ -4,3 +4,18 @@
   font-size: 18px;
   line-height: 22px;
 }
+
+@media screen and (max-width: 556px) {
+  .profile__about-caption {
+    margin: 8px 0 33px;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 429px) {
+  .profile__about-caption {
+    width: 100%;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

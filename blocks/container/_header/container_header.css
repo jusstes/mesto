@@ -1,3 +1,9 @@
 .container_header {
   padding: 45px 0 37px;
 }
+
+@media screen and (max-width: 529px) {
+  .container_header {
+    padding: 18px 0 32px;
+  }
+}

@@ -3,3 +3,17 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px 17px;
 }
+
+@media screen and (max-width: 937px) {
+  .elements {
+    grid-template-columns: 1fr 1fr;
+    margin: 0 20px 0;
+  }
+}
+
+@media screen and (max-width: 529px) {
+  .elements {
+    grid-template-columns: 1fr;
+    margin: 0 20px 0;
+  }
+}
