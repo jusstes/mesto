@@ -1,0 +1,11 @@
+.popup__form {
+  position: relative;
+  z-index: 2;
+  margin: 195px auto;
+  padding: 34px 36px 34px;
+  box-sizing: border-box;
+  width: 430px;
+  height: 330px;
+  background-color: #fff;
+  border-radius: 10px;
+}
