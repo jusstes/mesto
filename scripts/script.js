@@ -32,7 +32,7 @@ function formSubmitHandler(evt) {
 
 let liked = document.querySelectorAll('.element__button-like');
 
-for (let i = 0; i < liked.length; i++ ) {
+for (let i = 0; i < liked.length; i++) {
   liked[i].addEventListener('click', function() {
   liked[i].classList.toggle('element__button-like_active');
   });
