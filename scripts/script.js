@@ -1,11 +1,13 @@
 let popup = document.querySelector('.popup');
-let formElement = document.querySelector('.popup__container');
+let formElement = popup.querySelector('.popup__container');
+let nameInput = popup.querySelector('.popup__input_name');
+let jobInput = popup.querySelector('.popup__input_job');
+let closeBtn = popup.querySelector('.popup__close');
 let editBtn = document.querySelector('.profile__about-edit');
-let closeBtn = document.querySelector('.popup__close');
+// Вами предлагается поиск по атрибуту name. Это
+// getElementsByTagName? насколько часто он используется в работе?
 let name = document.querySelector('.profile__about-name');
 let job = document.querySelector('.profile__about-caption');
-let nameInput = document.querySelector('.popup__input_name');
-let jobInput = document.querySelector('.popup__input_job');
 
 editBtn.addEventListener('click', popupOpen);
 closeBtn.addEventListener('click', popupClose);
