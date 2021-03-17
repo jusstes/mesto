@@ -6,6 +6,7 @@ let closeBtn = popup.querySelector('.popup__close');
 let editBtn = document.querySelector('.profile__about-edit');
 let nameInfo = document.querySelector('.profile__about-name');
 let jobInfo = document.querySelector('.profile__about-caption');
+let likes = document.querySelectorAll('.element__button-like');
 
 editBtn.addEventListener('click', popupToggle);
 closeBtn.addEventListener('click', popupToggle);
@@ -22,4 +23,10 @@ function formSubmitHandler(evt) {
   nameInfo.textContent = nameInput.value;
   jobInfo.textContent = jobInput.value;
   popupToggle();
+}
+
+for (let i = 0; i < likes.length; i++) {
+  likes[i].addEventListener('click', function() {
+  likes[i].classList.toggle('element__button-like_active');
+  });
 }
