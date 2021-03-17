@@ -4,6 +4,7 @@
 
 @media screen and (max-width: 529px) {
   .container_header {
-    padding: 18px 0 32px;
+    padding-top: 18px;
+    padding-bottom: 32px;
   }
 }

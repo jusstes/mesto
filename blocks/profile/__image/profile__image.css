@@ -8,6 +8,6 @@
 
 @media screen and (max-width: 529px) {
   .profile__image {
-    margin: 0 0 22px;
+    margin-right: 22px;
   }
 }

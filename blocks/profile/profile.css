@@ -7,7 +7,7 @@
 
 @media screen and (max-width: 937px) {
   .profile {
-    margin: 40px 20px 51px;
+    margin-right: 20px;
   }
 }
 
@@ -20,7 +20,8 @@
 @media screen and (max-width: 556px) {
   .profile {
     flex-direction: column;
-    margin: 40px 0 35px;
+    margin-right: 0;
+    margin-bottom: 35px;
     padding: 0 20px 0;
   }
 }

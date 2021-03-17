@@ -4,6 +4,7 @@
 
 @media screen and (max-width: 529px) {
   .container_footer {
-    padding: 48px 0 36px;
+    padding-top: 48px;
+    padding-bottom: 36px;
   }
 }
