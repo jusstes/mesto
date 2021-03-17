@@ -12,7 +12,7 @@
 </head>
 <body class="page">
   <header class="header container container_header">
-    <a href="#" class="header__item" target="_self">  <!-- я удалил пустой header__item в стилях. в разметке тоже удалять? -->
+    <a href="#" class="" target="_self">
       <img src="./images/logo.svg" alt="Логотип Место" class="header__logo hover">
     </a>
   </header>
@@ -77,8 +77,8 @@
   <section class="popup">
     <form name="popup" action="#" class="popup__container">
       <h3 class="popup__title">Редактировать профиль</h3>
-      <input type="text" name="name" required placeholder="Имя" class="popup__input popup__input_name">
-      <input type="text" name="job" required placeholder="О себе" class="popup__input popup__input_job">
+      <input type="text" name="name" required placeholder="Имя" class="popup__input">
+      <input type="text" name="job" required placeholder="О себе" class="popup__input">
       <button type="submit" class="popup__submit">Сохранить</button>
       <button type="button" class="popup__close"></button>
     </form>

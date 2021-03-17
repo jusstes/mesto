@@ -1,31 +1,25 @@
 let popup = document.querySelector('.popup');
 let formElement = popup.querySelector('.popup__container');
-let nameInput = popup.querySelector('.popup__input_name');
-let jobInput = popup.querySelector('.popup__input_job');
+let nameInput = popup.querySelector('input[name="name"]');
+let jobInput = popup.querySelector('input[name="job"]');
 let closeBtn = popup.querySelector('.popup__close');
 let editBtn = document.querySelector('.profile__about-edit');
-// Вами предлагается поиск по атрибуту name. Это
-// getElementsByTagName? насколько часто он используется в работе?
-let name = document.querySelector('.profile__about-name');
-let job = document.querySelector('.profile__about-caption');
+let nameInfo = document.querySelector('.profile__about-name');
+let jobInfo = document.querySelector('.profile__about-caption');
 
-editBtn.addEventListener('click', popupOpen);
-closeBtn.addEventListener('click', popupClose);
+editBtn.addEventListener('click', popupToggle);
+closeBtn.addEventListener('click', popupToggle);
 formElement.addEventListener('submit', formSubmitHandler);
 
-function popupOpen() {
-  popup.classList.add('popup_opened');
-  nameInput.value = name.textContent;
-  jobInput.value = job.textContent;
-}
-
-function popupClose() {
-  popup.classList.remove('popup_opened');
+function popupToggle() {
+  popup.classList.toggle('popup_opened');
+  nameInput.value = nameInfo.textContent;
+  jobInput.value = jobInfo.textContent;
 }
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
-  name.textContent = nameInput.value;
-  job.textContent = jobInput.value;
-  popupClose();
+  nameInfo.textContent = nameInput.value;
+  jobInfo.textContent = jobInput.value;
+  popupToggle();
 }
