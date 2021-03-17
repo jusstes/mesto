@@ -6,8 +6,9 @@
 
 @media screen and (max-width: 937px) {
   .elements {
+    margin: 0 auto;
+    width: 98%;
     grid-template-columns: 1fr 1fr;
-    margin-right: 20px;
   }
 }
 
