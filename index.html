@@ -75,14 +75,15 @@
     <a href="#" class="footer__copyright hover" target="_self">&copy; 2021. Mesto Russia. Golodnikov.</a>
   </footer>
   <section class="popup">
-    <form name="popup" action="#" class="popup__container">
-      <h3 class="popup__title">Редактировать профиль</h3>
-      <input type="text" name="name" required placeholder="Имя" class="popup__input">
-      <input type="text" name="job" required placeholder="О себе" class="popup__input">
-      <button type="submit" class="popup__submit">Сохранить</button>
+    <div class="popup__container">
       <button type="button" class="popup__close"></button>
-    </form>
-    <div class="popup__overlay"></div>
+      <form name="popup" action="#" class="form">
+        <h3 class="form__title">Редактировать профиль</h3>
+        <input type="text" name="name" required placeholder="Имя" class="form__input">
+        <input type="text" name="job" required placeholder="О себе" class="form__input">
+        <button type="submit" class="form__submit">Сохранить</button>
+      </form>
+    </div>
   </section>
 <script src="./scripts/script.js"></script>
 </body>
