@@ -1,7 +1,7 @@
 .profile__about-name {
   align-self: end;
   margin: 0;
-  
+  text-align: start;
   font-weight: 500;
   font-size: 42px;
   line-height: 48px;
@@ -10,10 +10,15 @@
   overflow: hidden;
 }
 
+@media screen and (max-width: 556px) {
+  .profile__about-name {
+    text-align: center;
+  }
+}
+
 @media screen and (max-width: 429px) {
   .profile__about-name {
     width: 210px;
-    text-align: center;
     font-size: 27px;
     line-height: 33px;
   }
