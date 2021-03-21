@@ -8,6 +8,7 @@ let nameInfo = document.querySelector('.profile__about-name');
 let jobInfo = document.querySelector('.profile__about-caption');
 let likes = document.querySelectorAll('.element__button-like');
 let addBtn = document.querySelector('.profile__add');
+let delBtn = document.querySelector('.element__button-delete');
 
 
 editBtn.addEventListener('click', popupToggle);
