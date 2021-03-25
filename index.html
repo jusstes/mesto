@@ -26,61 +26,12 @@
     </div>
     <button type="button" class="profile__add hover"></button>
   </section>
-  <section class="elements">
-    <div class="element">
-      <img src="./images/markos-mant-unsplash.jpg" alt="Эгейское море" class="element__image">
-      <div class="element__content">
-        <h2 class="element__title">Эгейское море</h2>
-        <button type="button" class="element__button-like hover"></button>
-      </div>
-      <button type="button" class="element__button-delete hover"></button>
-    </div>
-    <div class="element">
-      <img src="./images/vadim-sadovski-unsplash.jpg" alt="Сибирь" class="element__image">
-      <div class="element__content">
-        <h2 class="element__title">Сибирь</h2>
-        <button type="button" class="element__button-like hover"></button>
-      </div>
-      <button type="button" class="element__button-delete hover"></button>
-    </div>
-    <div class="element">
-      <img src="./images/kirill-pershin-unsplash.jpg" alt="Домбай" class="element__image">
-      <div class="element__content">
-        <h2 class="element__title">Домбай</h2>
-        <button type="button" class="element__button-like hover"></button>
-      </div>
-      <button type="button" class="element__button-delete hover"></button>
-    </div>
-    <div class="element">
-      <img src="./images/ivan-tsaregorodtsev-unsplash.jpg" alt="Гора Эльбрус" class="element__image">
-      <div class="element__content">
-        <h2 class="element__title">Сидней</h2>
-        <button type="button" class="element__button-like hover"></button>
-      </div>
-      <button type="button" class="element__button-delete hover"></button>
-    </div>
-    <div class="element">
-      <img src="./images/watcharlie-unsplash.jpg" alt="Лондон" class="element__image">
-      <div class="element__content">
-        <h2 class="element__title">Лондон</h2>
-        <button type="button" class="element__button-like hover"></button>
-      </div>
-      <button type="button" class="element__button-delete hover"></button>
-    </div>
-    <div class="element">
-      <img src="./images/logan-weaver-unsplash.jpg" alt="Калифорния" class="element__image">
-      <div class="element__content">
-        <h2 class="element__title">Калифорния</h2>
-        <button type="button" class="element__button-like hover"></button>
-      </div>
-      <button type="button" class="element__button-delete hover"></button>
-    </div>
-  </section>
+  <section class="elements"></section>
 </main>
 <footer class="container container_footer">
   <a href="#" class="footer__copyright hover" target="_self">&copy; 2021. Mesto Russia. Golodnikov.</a>
 </footer>
-<section class="popup popup_edit">
+<section class="popup popup_edit-profile">
   <div class="popup__container">
     <button type="button" class="popup__close"></button>
     <form name="edit-form" action="#" class="form">
@@ -91,7 +42,7 @@
     </form>
   </div>
 </section>
-<section class="popup popup_add">
+<section class="popup popup_add-element">
   <div class="popup__container">
     <button type="button" class="popup__close"></button>
     <form name="add-form" action="#" class="form">
@@ -102,6 +53,16 @@
     </form>
   </div>
 </section>
+<template id="template-element">
+  <div class="element">
+    <img src="#" alt="#" class="element__image">
+    <div class="element__content">
+      <h2 class="element__title"></h2>
+      <button type="button" class="element__button-like hover"></button>
+    </div>
+    <button type="button" class="element__button-delete hover"></button>
+  </div>
+</template>
 <script src="./scripts/script.js"></script>
 </body>
 </html>

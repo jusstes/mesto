@@ -6,10 +6,6 @@ let closeBtn = popup.querySelector('.popup__close');
 let editBtn = document.querySelector('.profile__about-edit');
 let nameInfo = document.querySelector('.profile__about-name');
 let jobInfo = document.querySelector('.profile__about-caption');
-let likes = document.querySelectorAll('.element__button-like');
-let addBtn = document.querySelector('.profile__add');
-let delBtn = document.querySelector('.element__button-delete');
-
 
 editBtn.addEventListener('click', popupToggle);
 closeBtn.addEventListener('click', popupToggle);
@@ -26,12 +22,6 @@ function formSubmitHandler(evt) {
   nameInfo.textContent = nameInput.value;
   jobInfo.textContent = jobInput.value;
   popupToggle();
-}
-
-for (let i = 0; i < likes.length; i++) {
-  likes[i].addEventListener('click', function () {
-    likes[i].classList.toggle('element__button-like_active');
-  });
 }
 
 const initialCards = [
@@ -61,4 +51,44 @@ const initialCards = [
     name: 'Калифорния',
     link: 'https://raw.githubusercontent.com/jusstes/mesto/main/images/logan-weaver-unsplash.jpg'
   }
-]
+];
+
+const elementsContainer = document.querySelector('.elements');
+
+function delElement(evt) {
+  evt.target.closest('.element').remove();
+}
+
+function likeElement(evt) {
+  evt.target.classList.toggle('element__button-like_active');
+}
+
+function createDomNode(item) {
+  const templateEl = document.querySelector('#template-element').content;
+  const newElement = templateEl.querySelector('.element').cloneNode(true);
+  const elementImage = newElement.querySelector('.element__image');
+  const elementTitle = newElement.querySelector('.element__title');
+  const elementLike = newElement.querySelector('.element__button-like');
+  const elementDel = newElement.querySelector('.element__button-delete');
+
+  elementTitle.textContent = item.name;
+  elementImage.alt = item.name;
+  elementImage.src = item.link;
+
+  elementDel.addEventListener('click', delElement);
+  elementLike.addEventListener('click', likeElement);
+
+  return newElement;
+}
+
+function renderList() {
+  const result = initialCards.map(item => {
+    const newElement = createDomNode(item);
+    return newElement;
+  });
+  elementsContainer.append(...result);
+}
+
+// дописать добавление карточки сюда
+
+renderList();
