@@ -1,6 +1,7 @@
 .element__title {
   margin: 0;
   padding: 25px 0 25px 21px;
+  width: 190px;
   color: #000;
   font-weight: 900;
   font-size: 24px;
@@ -9,3 +10,5 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+@media screen and (max-width:)
