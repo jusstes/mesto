@@ -1,5 +1,5 @@
-let popup = document.querySelector('.popup');
-let formElement = popup.querySelector('.popup__container');
+let popup = document.querySelector('.popup_edit-profile');
+let formEdit = popup.querySelector('.form_type_edit');
 let nameInput = popup.querySelector('input[name="name"]');
 let jobInput = popup.querySelector('input[name="job"]');
 let closeBtn = popup.querySelector('.popup__close');
@@ -9,7 +9,7 @@ let jobInfo = document.querySelector('.profile__about-caption');
 
 editBtn.addEventListener('click', popupToggle);
 closeBtn.addEventListener('click', popupToggle);
-formElement.addEventListener('submit', formSubmitHandler);
+formEdit.addEventListener('submit', formSubmitHandler);
 
 function popupToggle() {
   popup.classList.toggle('popup_opened');
@@ -55,14 +55,6 @@ const initialCards = [
 
 const elementsContainer = document.querySelector('.elements');
 
-function delElement(evt) {
-  evt.target.closest('.element').remove();
-}
-
-function likeElement(evt) {
-  evt.target.classList.toggle('element__button-like_active');
-}
-
 function createDomNode(item) {
   const templateEl = document.querySelector('#template-element').content;
   const newElement = templateEl.querySelector('.element').cloneNode(true);
@@ -81,6 +73,14 @@ function createDomNode(item) {
   return newElement;
 }
 
+function delElement(evt) {
+  evt.target.closest('.element').remove();
+}
+
+function likeElement(evt) {
+  evt.target.classList.toggle('element__button-like_active');
+}
+
 function renderList() {
   const result = initialCards.map(item => {
     const newElement = createDomNode(item);
@@ -89,6 +89,28 @@ function renderList() {
   elementsContainer.append(...result);
 }
 
-// дописать добавление карточки сюда
-
 renderList();
+
+const addBtn = document.querySelector('.profile__add');
+const popupAdd = document.querySelector('.popup_add-element');
+const closePopupAdd = document.querySelector('.popup__close_type_add');
+const formAdd = popupAdd.querySelector('.form_type_add');
+const inputPlace = popupAdd.querySelector('.form__input_type_add_name');
+const inputSource = popupAdd.querySelector('.form__input_type_add_url');
+
+addBtn.addEventListener('click', openPopup);
+closePopupAdd.addEventListener('click', openPopup);
+formAdd.addEventListener('submit', formAddSubmitHandler);
+
+function openPopup(evt) {
+  popupAdd.classList.toggle('popup_opened');
+}
+
+function formAddSubmitHandler(evt) {
+  evt.preventDefault();
+  const card = createDomNode({name: inputPlace.value, link: inputSource.value});
+  elementsContainer.prepend(card);
+  openPopup();
+  inputPlace.value = '';
+  inputSource.value = '';
+}
