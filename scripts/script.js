@@ -35,7 +35,7 @@ const initialCards = [
   },
   {
     name: 'Домбай',
-    link: 'https://raw.githubusercontent.com/jusstes/mesto/main/images/kirill-pershin-unsplash.jpg'
+    link: ''
   },
   {
     name: 'Сидней',
@@ -69,6 +69,7 @@ function createDomNode(item) {
 
   elementDel.addEventListener('click', delElement);
   elementLike.addEventListener('click', likeElement);
+  elementImage.addEventListener('click', () => cardClick(item.link, item.name));
 
   return newElement;
 }
@@ -102,15 +103,33 @@ addBtn.addEventListener('click', openPopup);
 closePopupAdd.addEventListener('click', openPopup);
 formAdd.addEventListener('submit', formAddSubmitHandler);
 
-function openPopup(evt) {
+function openPopup() {
   popupAdd.classList.toggle('popup_opened');
 }
 
 function formAddSubmitHandler(evt) {
   evt.preventDefault();
-  const card = createDomNode({name: inputPlace.value, link: inputSource.value});
-  elementsContainer.prepend(card);
+  const element = createDomNode({name: inputPlace.value, link: inputSource.value});
+  elementsContainer.prepend(element);
   openPopup();
   inputPlace.value = '';
   inputSource.value = '';
+}
+
+const photoModal = document.querySelector('.photo')
+const photoImage = photoModal.querySelector('.photo__image');
+const btnCloseModal = photoModal.querySelector('.photo__button');
+const altModal = photoModal.querySelector('.photo__title');
+
+btnCloseModal.addEventListener('click', openPhotoModal);
+
+function openPhotoModal() {
+  photoModal.classList.toggle('popup_opened');
+}
+
+function cardClick(link, alt) {
+  photoImage.src = link;
+  photoImage.alt = alt;
+  altModal.textContent = alt;
+  openPhotoModal();
 }
