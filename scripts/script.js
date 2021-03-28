@@ -96,8 +96,8 @@ const addBtn = document.querySelector('.profile__add');
 const popupAdd = document.querySelector('.popup_add-element');
 const closePopupAdd = document.querySelector('.popup__close_type_add');
 const formAdd = popupAdd.querySelector('.form_type_add');
-const inputPlace = popupAdd.querySelector('.form__input_type_add_name');
-const inputSource = popupAdd.querySelector('.form__input_type_add_url');
+const inputPlace = popupAdd.querySelector('.form__input_type_name');
+const inputSource = popupAdd.querySelector('.form__input_type_url');
 
 addBtn.addEventListener('click', openPopup);
 closePopupAdd.addEventListener('click', openPopup);
