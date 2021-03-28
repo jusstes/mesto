@@ -35,7 +35,7 @@ const initialCards = [
   },
   {
     name: 'Домбай',
-    link: ''
+    link: 'https://raw.githubusercontent.com/jusstes/mesto/main/images/kirill-pershin-unsplash.jpg'
   },
   {
     name: 'Сидней',
