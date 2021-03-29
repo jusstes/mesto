@@ -1,11 +1,11 @@
-.photo__button {
+.popup__button {
   position: absolute;
   top: -40px;
   right: -40px;
 }
 
 @media screen and (max-width: 556px) {
-  .photo__button {
+  .popup__button {
     right: 0;
   }
 }

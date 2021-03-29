@@ -18,7 +18,7 @@
 </header>
 <main class="content container">
   <section class="profile">
-    <img alt="Жак-Ив Кусто" class="profile__image" src="./images/Avatar.jpg">
+    <img alt="Аватар пользователя" class="profile__image" src="./images/Avatar.jpg">
     <div class="profile__about">
       <h1 class="profile__about-name">Жак-Ив Кусто</h1>
       <button type="button" class="profile__about-edit hover"></button>
@@ -31,7 +31,7 @@
 <footer class="footer container container_footer">
   <a href="#" class="footer__copyright hover" target="_self">&copy; 2021. Mesto Russia. Golodnikov.</a>
 </footer>
-<section class="popup popup_edit-profile">
+<div class="popup popup_type_edit">
   <div class="popup__container">
     <button type="button" class="popup__close"></button>
     <form name="edit-form" action="#" class="form form_type_edit">
@@ -41,25 +41,25 @@
       <button type="submit" class="form__submit">Сохранить</button>
     </form>
   </div>
-</section>
-<section class="popup popup_add-element">
+</div>
+<div class="popup popup_type_add">
   <div class="popup__container">
     <button type="button" class="popup__close popup__close_type_add"></button>
     <form name="add-form" action="#" class="form form_type_add">
       <h3 class="form__title">Новое место</h3>
       <input type="text" name="place" required placeholder="Название" class="form__input form__input_type_name">
-      <input type="text" name="link" required placeholder="Ссылка на картинку" class="form__input form__input_type_url">
+      <input type="url" name="link" required placeholder="Ссылка на картинку" class="form__input form__input_type_url">
       <button type="submit" class="form__submit form__submit_type_add">Создать</button>
     </form>
   </div>
-</section>
-<section class="popup photo">
-  <div class="photo__container">
-    <button type="button" class="photo__button popup__close"></button>
-    <img alt="#" src="#" class="photo__image">
-    <p class="photo__title"></p>
+</div>
+<div class="popup popup_type_photo">
+  <div class="popup__box">
+    <button type="button" class="popup__button popup__close"></button>
+    <img alt="#" src="#" class="popup__image">
+    <p class="popup__title"></p>
   </div>
-</section>
+</div>
 <template id="template-element">
   <div class="element">
     <img src="#" alt="#" class="element__image">
@@ -70,6 +70,7 @@
     <button type="button" class="element__button-delete hover"></button>
   </div>
 </template>
+<script src="./scripts/initial-сards.js"></script>
 <script src="./scripts/script.js"></script>
 </body>
 </html>

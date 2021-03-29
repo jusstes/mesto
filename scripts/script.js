@@ -1,61 +1,45 @@
-const popup = document.querySelector('.popup_edit-profile');
-const formEdit = popup.querySelector('.form_type_edit');
-const nameInput = popup.querySelector('input[name="name"]');
-const jobInput = popup.querySelector('input[name="job"]');
-const closeBtn = popup.querySelector('.popup__close');
+const editPopup = document.querySelector('.popup_type_edit');
+const photoModal = document.querySelector('.popup_type_photo')
+const photoImage = photoModal.querySelector('.popup__image');
+const btnCloseModal = photoModal.querySelector('.popup__button');
+const altModal = photoModal.querySelector('.popup__title');
+const closeBtn = editPopup.querySelector('.popup__close');
+const popupAdd = document.querySelector('.popup_type_add');
+const closePopupAdd = document.querySelector('.popup__close_type_add');
+const nameInput = editPopup.querySelector('input[name="name"]');
+const jobInput = editPopup.querySelector('input[name="job"]');
+const addBtn = document.querySelector('.profile__add');
 const editBtn = document.querySelector('.profile__about-edit');
 const nameInfo = document.querySelector('.profile__about-name');
 const jobInfo = document.querySelector('.profile__about-caption');
+const formEdit = editPopup.querySelector('.form_type_edit');
+const formAdd = popupAdd.querySelector('.form_type_add');
+const inputPlace = popupAdd.querySelector('.form__input_type_name');
+const inputSource = popupAdd.querySelector('.form__input_type_url');
+const elementsContainer = document.querySelector('.elements');
 
-editBtn.addEventListener('click', popupToggle);
-closeBtn.addEventListener('click', popupToggle);
-formEdit.addEventListener('submit', formSubmitHandler);
-
-function popupToggle() {
-  popup.classList.toggle('popup_opened');
-  nameInput.value = nameInfo.textContent;
-  jobInput.value = jobInfo.textContent;
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
 }
 
-function formSubmitHandler(evt) {
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
+function handlePopupEdit() {
+  nameInput.value = nameInfo.textContent;
+  jobInput.value = jobInfo.textContent;
+  openPopup(editPopup);
+}
+
+function handleProfileSubmit(evt) {
   evt.preventDefault();
   nameInfo.textContent = nameInput.value;
   jobInfo.textContent = jobInput.value;
-  popupToggle();
+  closePopup(editPopup);
 }
 
-const initialCards = [
-  {
-    name: 'Эгейское море',
-    link: 'https://raw.githubusercontent.com/jusstes/mesto/main/images/markos-mant-unsplash.jpg'
-  },
-  {
-    name: 'Сибирь',
-    link: 'https://raw.githubusercontent.com/jusstes/mesto/main/images/vadim-sadovski-unsplash.jpg'
-  },
-  {
-    name: 'Домбай',
-    link: 'https://raw.githubusercontent.com/jusstes/mesto/main/images/kirill-pershin-unsplash.jpg'
-  },
-  {
-    name: 'Сидней',
-    link: 'https://raw.githubusercontent.com/jusstes/mesto/main/images/ivan-tsaregorodtsev-unsplash.jpg'
-  }
-  ,
-  {
-    name: 'Лондон',
-    link: 'https://raw.githubusercontent.com/jusstes/mesto/main/images/watcharlie-unsplash.jpg'
-  }
-  ,
-  {
-    name: 'Калифорния',
-    link: 'https://raw.githubusercontent.com/jusstes/mesto/main/images/logan-weaver-unsplash.jpg'
-  }
-];
-
-const elementsContainer = document.querySelector('.elements');
-
-function createDomNode(item) {
+function createCard(item) {
   const templateEl = document.querySelector('#template-element').content;
   const newElement = templateEl.querySelector('.element').cloneNode(true);
   const elementImage = newElement.querySelector('.element__image');
@@ -67,69 +51,49 @@ function createDomNode(item) {
   elementImage.alt = item.name;
   elementImage.src = item.link;
 
-  elementDel.addEventListener('click', delElement);
-  elementLike.addEventListener('click', likeElement);
-  elementImage.addEventListener('click', () => cardClick(item.link, item.name));
+  elementDel.addEventListener('click', handleDeleteCard);
+  elementLike.addEventListener('click', handleLikeCard);
+  elementImage.addEventListener('click', () => handlePreviewImage(item.link, item.name));
 
   return newElement;
 }
 
-function delElement(evt) {
+function handleDeleteCard(evt) {
   evt.target.closest('.element').remove();
 }
 
-function likeElement(evt) {
+function handleLikeCard(evt) {
   evt.target.classList.toggle('element__button-like_active');
 }
 
 function renderList() {
   const result = initialCards.map(item => {
-    const newElement = createDomNode(item);
+    const newElement = createCard(item);
     return newElement;
   });
   elementsContainer.append(...result);
 }
 
-renderList();
-
-const addBtn = document.querySelector('.profile__add');
-const popupAdd = document.querySelector('.popup_add-element');
-const closePopupAdd = document.querySelector('.popup__close_type_add');
-const formAdd = popupAdd.querySelector('.form_type_add');
-const inputPlace = popupAdd.querySelector('.form__input_type_name');
-const inputSource = popupAdd.querySelector('.form__input_type_url');
-
-addBtn.addEventListener('click', openPopup);
-closePopupAdd.addEventListener('click', openPopup);
-formAdd.addEventListener('submit', formAddSubmitHandler);
-
-function openPopup() {
-  popupAdd.classList.toggle('popup_opened');
-}
-
-function formAddSubmitHandler(evt) {
+function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
-  const element = createDomNode({name: inputPlace.value, link: inputSource.value});
+  const element = createCard({name: inputPlace.value, link: inputSource.value});
   elementsContainer.prepend(element);
-  openPopup();
-  inputPlace.value = '';
-  inputSource.value = '';
+  closePopup(popupAdd);
+  formAdd.reset();
 }
-
-const photoModal = document.querySelector('.photo')
-const photoImage = photoModal.querySelector('.photo__image');
-const btnCloseModal = photoModal.querySelector('.photo__button');
-const altModal = photoModal.querySelector('.photo__title');
-
-btnCloseModal.addEventListener('click', openPhotoModal);
-
-function openPhotoModal() {
-  photoModal.classList.toggle('popup_opened');
-}
-
-function cardClick(link, alt) {
+function handlePreviewImage(link, alt) {
   photoImage.src = link;
   photoImage.alt = alt;
   altModal.textContent = alt;
-  openPhotoModal();
+  openPopup(photoModal);
 }
+
+renderList();
+
+editBtn.addEventListener('click', handlePopupEdit);
+addBtn.addEventListener('click', () => openPopup(popupAdd));
+closePopupAdd.addEventListener('click', () => closePopup(popupAdd));
+formAdd.addEventListener('submit', handleAddCardFormSubmit);
+formEdit.addEventListener('submit', handleProfileSubmit);
+closeBtn.addEventListener('click', () => closePopup(editPopup));
+btnCloseModal.addEventListener('click', () => closePopup(photoModal));
