@@ -22,8 +22,18 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-function openPopup(popup) {
+function openPopup(popup, event) {
   popup.classList.add('popup_opened');
+  document.addEventListener('click', function(event) {
+    if(event.target.classList.contains('popup')) {
+      closePopup(popup);
+    }
+  });
+  document.addEventListener('keydown', function(event) {
+    if(event.key === 'Escape') {
+      closePopup(popup);
+    }
+  });
 }
 
 function handlePopupEdit() {
