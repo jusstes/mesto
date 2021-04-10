@@ -18,22 +18,29 @@ const inputPlace = popupAdd.querySelector('.form__input_type_name');
 const inputSource = popupAdd.querySelector('.form__input_type_url');
 const elementsContainer = document.querySelector('.elements');
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
+
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
-function openPopup(popup, event) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('click', function(event) {
-    if(event.target.classList.contains('popup')) {
-      closePopup(popup);
-    }
-  });
-  document.addEventListener('keydown', function(event) {
-    if(event.key === 'Escape') {
-      closePopup(popup);
-    }
-  });
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEsc);
+}
+
+function closePopupByEsc(evt) {
+  if(evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
+  }
+}
+
+function closePopupByClick(evt) {
+  if(evt.target.classList.contains('popup')) {
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
+  }
 }
 
 function handlePopupEdit() {
@@ -100,6 +107,7 @@ function handlePreviewImage(link, alt) {
 
 renderList();
 
+document.addEventListener('click', closePopupByClick);
 editBtn.addEventListener('click', handlePopupEdit);
 addBtn.addEventListener('click', () => openPopup(popupAdd));
 closePopupAdd.addEventListener('click', () => closePopup(popupAdd));
