@@ -37,7 +37,9 @@
     <form name="edit-form" action="#" class="form form_type_edit">
       <h3 class="form__title">Редактировать профиль</h3>
       <input type="text" name="name" required minlength="2" maxlength="40" placeholder="Имя" class="form__input">
+      <span class="popup__eror" id="name-error"></span>
       <input type="text" name="job" required minlength="2" maxlength="200" placeholder="О себе" class="form__input">
+      <span class="popup__eror" id="job-error"></span>
       <button type="submit" class="form__submit">Сохранить</button>
     </form>
   </div>
@@ -48,7 +50,9 @@
     <form name="add-form" action="#" class="form form_type_add">
       <h3 class="form__title">Новое место</h3>
       <input type="text" name="place" minlength="1" maxlength="30" required placeholder="Название" class="form__input form__input_type_name">
+      <span class="popup__eror" id="place-error"></span>
       <input type="url" name="link"  required placeholder="Ссылка на картинку" class="form__input form__input_type_url">
+      <span class="popup__eror" id="url-error"></span>
       <button type="submit" class="form__submit form__submit_type_add">Создать</button>
     </form>
   </div>
