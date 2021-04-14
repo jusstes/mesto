@@ -18,6 +18,10 @@ const inputPlace = popupAdd.querySelector('.form__input_type_name');
 const inputSource = popupAdd.querySelector('.form__input_type_url');
 const elementsContainer = document.querySelector('.elements');
 
+const buttonElement = document.querySelectorAll('.form__submit');
+const formElement = document.querySelectorAll('.form');
+const inputElement = document.querySelectorAll('.form__input');
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByEsc);
