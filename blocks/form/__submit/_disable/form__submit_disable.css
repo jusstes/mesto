@@ -1,5 +1,7 @@
 .form__submit_disable {
-  background-color: #000;
+  background-color: #fff;
+  color: #000;
   opacity: .2;
   border: 1px solid currentColor;
+  pointer-events: none;
 }

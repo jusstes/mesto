@@ -18,18 +18,18 @@ const inputPlace = popupAdd.querySelector('.form__input_type_name');
 const inputSource = popupAdd.querySelector('.form__input_type_url');
 const elementsContainer = document.querySelector('.elements');
 
-const buttonElement = document.querySelectorAll('.form__submit');
-const formElement = document.querySelectorAll('.form');
-const inputElement = document.querySelectorAll('.form__input');
-
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  clearValidation(validateConfig);
   document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEsc);
+  if(popup.classList.contains('popup_type_add')) {
+    formAdd.reset();
+  }
 }
 
 function closePopupByEsc(evt) {
@@ -100,6 +100,7 @@ function handleAddCardFormSubmit(evt) {
   elementsContainer.prepend(element);
   closePopup(popupAdd);
   formAdd.reset();
+  clearValidation(validateConfig);
 }
 function handlePreviewImage(link, alt) {
   photoImage.src = link;
