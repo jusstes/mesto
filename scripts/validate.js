@@ -69,7 +69,7 @@ function toggleButtonState(inputList, buttonElement, validateConfig) {
       buttonElement.removeAttribute('disabled');
       buttonElement.classList.remove(validateConfig.inactiveButtonClass);
     }
-};
+}
 
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
