@@ -79,11 +79,11 @@ function hasInvalidInput(inputList) {
 
 function setCustomError(formElement, inputElement, validateConfig) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  if (!inputElement.value.length <= 0) {
-    errorElement.textContent = inputElement.validationMessage;
-  }
-  else if (inputElement.classList.contains('form__input_type_url')) {
+  if (inputElement.classList.contains('form__input_type_url')) {
     errorElement.textContent = validateConfig.errorMessageEmptyUrl;
+  }
+  else if (!inputElement.value.length <= 0) {
+    errorElement.textContent = inputElement.validationMessage;
   }
   else {
     errorElement.textContent = validateConfig.errorMessageEmptyInput;
