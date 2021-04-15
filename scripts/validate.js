@@ -49,7 +49,7 @@ const enableValidation = (validateConfig) => {
   });
 };
 
-const clearValidation = (validateConfig) => {
+const clearValidationState = (validateConfig) => {
   const formList = Array.from(document.querySelectorAll(validateConfig.formSelector));
   formList.forEach(formElement => {
     const inputList = Array.from(formElement.querySelectorAll(validateConfig.inputSelector));

@@ -20,7 +20,7 @@ const elementsContainer = document.querySelector('.elements');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  clearValidation(validateConfig);
+  clearValidationState(validateConfig);
   document.addEventListener('keydown', closePopupByEsc);
 }
 
@@ -100,7 +100,7 @@ function handleAddCardFormSubmit(evt) {
   elementsContainer.prepend(element);
   closePopup(popupAdd);
   formAdd.reset();
-  clearValidation(validateConfig);
+  clearValidationState(validateConfig);
 }
 function handlePreviewImage(link, alt) {
   photoImage.src = link;
