@@ -11,9 +11,9 @@ const validateConfig = {
 
 const showInputError = (formElement, inputElement, validateConfig) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  setCustomError(formElement, inputElement, validateConfig);
   inputElement.classList.add(validateConfig.inputErrorClass);
   errorElement.classList.add(validateConfig.errorClass);
-  setCustomError(formElement, inputElement, validateConfig);
 };
 
 const hideInputError = (formElement, inputElement, validateConfig) => {
@@ -66,8 +66,8 @@ function toggleButtonState(inputList, buttonElement, validateConfig) {
     buttonElement.setAttribute('disabled', true);
     buttonElement.classList.add(validateConfig.inactiveButtonClass);
   } else {
-      buttonElement.classList.remove(validateConfig.inactiveButtonClass);
       buttonElement.removeAttribute('disabled');
+      buttonElement.classList.remove(validateConfig.inactiveButtonClass);
     }
 };
 
