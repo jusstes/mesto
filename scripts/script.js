@@ -6,17 +6,36 @@ const altModal = photoModal.querySelector('.popup__title');
 const closeBtn = editPopup.querySelector('.popup__close');
 const popupAdd = document.querySelector('.popup_type_add');
 const closePopupAdd = document.querySelector('.popup__close_type_add');
+
 const nameInput = editPopup.querySelector('input[name="name"]');
 const jobInput = editPopup.querySelector('input[name="job"]');
+
 const addBtn = document.querySelector('.profile__add');
 const editBtn = document.querySelector('.profile__about-edit');
 const nameInfo = document.querySelector('.profile__about-name');
 const jobInfo = document.querySelector('.profile__about-caption');
+
 const formEdit = editPopup.querySelector('.form_type_edit');
 const formAdd = popupAdd.querySelector('.form_type_add');
 const inputPlace = popupAdd.querySelector('.form__input_type_name');
 const inputSource = popupAdd.querySelector('.form__input_type_url');
+
 const elementsContainer = document.querySelector('.elements');
+
+const popups = document.querySelectorAll('.popup');
+
+function closePopupByClick() {
+  popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+      if(evt.target.classList.contains('popup_opened')) {
+        closePopup(popup);
+      }
+      if(evt.target.classList.contains('popup__close')) {
+        closePopup(popup);
+      }
+    })
+  })
+}
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -32,12 +51,6 @@ function closePopupByEsc(evt) {
   if(evt.key === 'Escape') {
     const popup = document.querySelector('.popup_opened');
     closePopup(popup);
-  }
-}
-
-function closePopupByClick(evt) {
-  if(evt.target.classList.contains('popup')) {
-    closePopup(evt.target);
   }
 }
 
@@ -103,7 +116,6 @@ function handleAddCardFormSubmit(evt) {
   elementsContainer.prepend(element);
   closePopup(popupAdd);
   formAdd.reset();
-  clearValidationState(validateConfig);
 }
 
 function handlePreviewImage(link, alt) {
@@ -118,8 +130,5 @@ renderList();
 document.addEventListener('click', closePopupByClick);
 editBtn.addEventListener('click', handlePopupEdit);
 addBtn.addEventListener('click', handlePopupAdd);
-closePopupAdd.addEventListener('click', () => closePopup(popupAdd));
 formAdd.addEventListener('submit', handleAddCardFormSubmit);
 formEdit.addEventListener('submit', handleProfileSubmit);
-closeBtn.addEventListener('click', () => closePopup(editPopup));
-btnCloseModal.addEventListener('click', () => closePopup(photoModal));
