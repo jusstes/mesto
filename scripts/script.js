@@ -44,6 +44,7 @@ function closePopupByClick(evt) {
 function handlePopupEdit() {
   nameInput.value = nameInfo.textContent;
   jobInput.value = jobInfo.textContent;
+  clearValidationState(validateConfig);
   openPopup(editPopup);
 }
 
