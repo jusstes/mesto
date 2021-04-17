@@ -20,16 +20,12 @@ const elementsContainer = document.querySelector('.elements');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  clearValidationState(validateConfig);
   document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEsc);
-  if(popup.classList.contains('popup_type_add')) {
-    formAdd.reset();
-  }
 }
 
 function closePopupByEsc(evt) {
@@ -41,8 +37,7 @@ function closePopupByEsc(evt) {
 
 function closePopupByClick(evt) {
   if(evt.target.classList.contains('popup')) {
-    const popup = document.querySelector('.popup_opened');
-    closePopup(popup);
+    closePopup(evt.target);
   }
 }
 
@@ -52,10 +47,17 @@ function handlePopupEdit() {
   openPopup(editPopup);
 }
 
+function handlePopupAdd() {
+  formAdd.reset();
+  clearValidationState(validateConfig);
+  openPopup(popupAdd)
+}
+
 function handleProfileSubmit(evt) {
   evt.preventDefault();
   nameInfo.textContent = nameInput.value;
   jobInfo.textContent = jobInput.value;
+  clearValidationState(validateConfig);
   closePopup(editPopup);
 }
 
@@ -102,6 +104,7 @@ function handleAddCardFormSubmit(evt) {
   formAdd.reset();
   clearValidationState(validateConfig);
 }
+
 function handlePreviewImage(link, alt) {
   photoImage.src = link;
   photoImage.alt = alt;
@@ -113,7 +116,7 @@ renderList();
 
 document.addEventListener('click', closePopupByClick);
 editBtn.addEventListener('click', handlePopupEdit);
-addBtn.addEventListener('click', () => openPopup(popupAdd));
+addBtn.addEventListener('click', handlePopupAdd);
 closePopupAdd.addEventListener('click', () => closePopup(popupAdd));
 formAdd.addEventListener('submit', handleAddCardFormSubmit);
 formEdit.addEventListener('submit', handleProfileSubmit);
