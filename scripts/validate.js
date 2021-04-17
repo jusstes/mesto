@@ -6,7 +6,8 @@ const validateConfig = {
   inputErrorClass: 'form__input_type_error',
   errorClass: 'popup__error_visible',
   errorMessageEmptyInput: 'Вы пропустили это поле.',
-  errorMessageEmptyUrl: 'Введите адрес сайта.'
+  errorMessageEmptyUrl: 'Введите адрес сайта.',
+  inputUrlClass: 'form__input_type_url'
 };
 
 const showInputError = (formElement, inputElement, validateConfig) => {
@@ -79,7 +80,7 @@ function hasInvalidInput(inputList) {
 
 function setCustomError(formElement, inputElement, validateConfig) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  if (inputElement.classList.contains('form__input_type_url')) {
+  if (inputElement.classList.contains(validateConfig.inputUrlClass)) {
     errorElement.textContent = validateConfig.errorMessageEmptyUrl;
   }
   else if (!inputElement.value.length <= 0) {
