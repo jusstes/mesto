@@ -12,14 +12,14 @@ export class FormValidate {
   }
 
   _showInputError(inputElement) {
-    const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
+    const errorElement = inputElement.nextElementSibling;
     this._setCustomError(inputElement);
     inputElement.classList.add(this._inputErrorClass);
     errorElement.classList.add(this._errorClass);
   }
 
   _hideInputError(inputElement) {
-    const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
+    const errorElement = inputElement.nextElementSibling;
     errorElement.classList.remove(this._errorClass);
     inputElement.classList.remove(this._inputErrorClass);
   }
@@ -58,7 +58,7 @@ export class FormValidate {
   }
   
   _setCustomError(inputElement) {
-    const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
+    const errorElement = inputElement.nextElementSibling;
     if (inputElement.classList.contains(this._inputUrlClass)) {
       errorElement.textContent = this._errorMessageEmptyUrl;
     }
@@ -71,8 +71,11 @@ export class FormValidate {
   }
 
   enableValidation() {
-    this._inputList.forEach((inputElement) => this._hideInputError(inputElement));
     this._setEventListeners();
+  }
+
+  clearValidationState() {
+    this._inputList.forEach((inputElement) => this._hideInputError(inputElement));
     this._toggleButtonState();
   }
 }

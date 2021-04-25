@@ -16,7 +16,6 @@ const popupsConfig = {
   popups: document.querySelectorAll('.popup'),
   buttonClosePopup: document.querySelector('.popup__close'),
   buttonCloseModal: document.querySelector('.popup__button'),
-  popups: document.querySelectorAll('.popup'),
   popupOpened: 'popup_opened'
 };
 

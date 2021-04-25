@@ -1,6 +1,6 @@
 export class Card {
   constructor(item, handlePreviewImage, cardConfig, templateSelector) {
-    this._templateSelector = document.querySelector(templateSelector); 
+    this._templateElement = document.querySelector(templateSelector); 
     this._image = item.link;
     this._title = item.name;
     this._cardImage = cardConfig.elementImage;
@@ -18,6 +18,7 @@ export class Card {
   
   _handleDeleteCard() {
     this._element.remove();
+    this._element = null;
   }
   
   _handleLikeCard() {
@@ -25,7 +26,7 @@ export class Card {
   }
   
   _getTemplate() {
-    const newElement = this._templateSelector.content.children[0].cloneNode(true);
+    const newElement = this._templateElement.content.children[0].cloneNode(true);
     return newElement;
   }
   

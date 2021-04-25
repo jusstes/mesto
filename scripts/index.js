@@ -4,7 +4,9 @@ import { Card } from './Card.js';
 import { FormValidate } from './FormValidate.js';
 
 const formEditValidate = new FormValidate(validateConfig, popupEditConfig.editPopup);
+formEditValidate.enableValidation();
 const formAddValidate = new FormValidate(validateConfig, popupAddConfig.popupAdd);
+formAddValidate.enableValidation();
 
 function openPopup(popup) {
   popup.classList.add(popupsConfig.popupOpened);
@@ -39,13 +41,13 @@ function closePopupByEsc(evt) {
 function handlePopupEdit() {
   popupEditConfig.nameInput.value = popupEditConfig.nameInfo.textContent;
   popupEditConfig.jobInput.value = popupEditConfig.jobInfo.textContent;
-  formEditValidate.enableValidation();
+  formEditValidate.clearValidationState();
   openPopup(popupEditConfig.editPopup);
 }
 
 function handlePopupAdd() {
   popupAddConfig.formAdd.reset();
-  formAddValidate.enableValidation();
+  formAddValidate.clearValidationState();
   openPopup(popupAddConfig.popupAdd)
 }
 
@@ -84,8 +86,8 @@ function renderList() {
 }
 
 renderList();
+closePopupByClick();
 
-document.addEventListener('click', closePopupByClick);
 popupAddConfig.addButton.addEventListener('click', handlePopupAdd);
 popupAddConfig.formAdd.addEventListener('submit', handleAddCardFormSubmit);
 popupEditConfig.formEdit.addEventListener('submit', handleProfileSubmit);
