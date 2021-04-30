@@ -65,17 +65,17 @@ function handleAddCardFormSubmit(evt) {
   closePopup(popupAddConfig.popupAdd);
 }
 
-function createCard(item) {
-  const element = new Card(item, handlePreviewImage, cardConfig, '#template-element');
-  const card = element.generateCard();
-  return card;
-}
-
 function handlePreviewImage(link, alt) {
   imagePreviewConfig.photoImage.src = link;
   imagePreviewConfig.photoImage.alt = alt;
   imagePreviewConfig.altModal.textContent = alt;
   openPopup(imagePreviewConfig.photoModal);
+}
+
+function createCard(item) {
+  const element = new Card(item, handlePreviewImage, cardConfig, '#template-element');
+  const card = element.generateCard();
+  return card;
 }
 
 (function renderList() {
