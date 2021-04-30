@@ -18,7 +18,7 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closePopupByEsc);
 }
 
-function closePopupByClick() {
+(function closePopupByClick() {
   popupsConfig.popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
       if(evt.target.classList.contains(popupsConfig.popupOpened)) {
@@ -29,7 +29,7 @@ function closePopupByClick() {
       }
     })
   })
-}
+})();
 
 function closePopupByEsc(evt) {
   if(evt.key === 'Escape') {
@@ -86,7 +86,6 @@ function renderList() {
 }
 
 renderList();
-closePopupByClick();
 
 popupAddConfig.addButton.addEventListener('click', handlePopupAdd);
 popupAddConfig.formAdd.addEventListener('submit', handleAddCardFormSubmit);
