@@ -78,14 +78,12 @@ function handlePreviewImage(link, alt) {
   openPopup(imagePreviewConfig.photoModal);
 }
 
-function renderList() {
+(function renderList() {
   initialCards.forEach((item) => {
     const newElement = createCard(item);
     cardConfig.elementsContainer.append(newElement);
   })
-}
-
-renderList();
+})();
 
 popupAddConfig.addButton.addEventListener('click', handlePopupAdd);
 popupAddConfig.formAdd.addEventListener('submit', handleAddCardFormSubmit);
