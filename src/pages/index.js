@@ -1,7 +1,8 @@
-import { initialCards } from './initial-сards.js';
-import { validateConfig, popupsConfig, popupEditConfig, popupAddConfig, imagePreviewConfig, cardConfig } from './constants.js';
-import { Card } from './Card.js';
-import { FormValidate } from './FormValidate.js';
+import { initialCards } from '../scripts/initial-сards.js';
+import { validateConfig, popupsConfig, popupEditConfig, popupAddConfig, imagePreviewConfig, cardConfig } from '../scripts/constants.js';
+import { Card } from '../scripts/Card.js';
+import { FormValidate } from '../scripts/FormValidate.js';
+import './index.css';
 
 const formEditValidate = new FormValidate(validateConfig, popupEditConfig.editPopup);
 formEditValidate.enableValidation();

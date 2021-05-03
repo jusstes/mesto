@@ -1,4 +1,4 @@
-# Проект 7: Место
+# Проект 8: Место
 
 **Описание**
 
@@ -13,6 +13,7 @@
 **Технологии**
 * JavaScript;
 * HTML5 & CSS3;
+* Webpack;
 * Object-oriented programming;
 * grid layout;
 * flexbox;
