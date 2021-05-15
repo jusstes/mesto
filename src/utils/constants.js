@@ -14,7 +14,7 @@ const validateConfig = {
 
 const popupsConfig = {
   popups: document.querySelectorAll('.popup'),
-  buttonClosePopup: document.querySelector('.popup__close'),
+  buttonClosePopup: 'popup__close',
   buttonCloseModal: document.querySelector('.popup__button'),
   popupOpened: 'popup_opened'
 };

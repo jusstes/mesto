@@ -1,8 +1,8 @@
 export class Card {
-  constructor(item, handlePreviewImage, cardConfig, templateSelector) {
+  constructor({name, link}, {handlePreviewImage}, cardConfig, templateSelector) {
     this._templateElement = document.querySelector(templateSelector); 
-    this._image = item.link;
-    this._title = item.name;
+    this._image = link;
+    this._title = name;
     this._cardImage = cardConfig.elementImage;
     this._cardTitle = cardConfig.elementTitle;
     this._cardLike = cardConfig.elementLike;
