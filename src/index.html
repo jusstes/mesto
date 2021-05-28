@@ -16,7 +16,7 @@
     <img alt="Логотип Место" class="header__logo hover" src="<%=require('./images/logo.svg')%>">
   </a>
 </header>
-<main class="content container container_hidden">
+<main class="content container">
   <section class="profile">
     <button class="profile__image-button" type="button"><img alt="Аватар пользователя" class="profile__image" src="#"></button>
     <div class="profile__about">
@@ -25,6 +25,13 @@
       <p class="profile__about-caption"></p>
     </div>
     <button type="button" class="profile__add hover"></button>
+  </section>
+  <section class="loading">
+    <div class="loading-up"></div>
+    <div class="loading-down"></div>
+    <div class="loading-ball loading-ball1"></div>
+    <div class="loading-ball loading-ball2"></div>
+    <div class="loading-ball loading-ball3"></div>
   </section>
   <section class="elements"></section>
 </main>

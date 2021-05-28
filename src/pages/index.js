@@ -1,4 +1,4 @@
-import {
+import { whileLoading,
   buttons,
   deletePopup,
   avatar,
@@ -86,7 +86,7 @@ const popupDelete = new PopupWithConfirm(deletePopup, {
       })
       .catch(result => console.log(`${result} при удалении фотографии`))
       .finally(() => {
-        buttons.delete.textContent = 'Сохранить'
+        buttons.delete.textContent = 'Да'
       })
   }
 })
@@ -154,18 +154,6 @@ const api = new Api({
   }
 })
 
-// этот способ рабочий, но мне не нравится экран без части данных, поэтому добавил Promise.all
-// api.getUserData()
-//   .then(data => {
-//     userInfo.setUserInfo(data.name, data.about);
-//     userInfo.setUserAvatar(data.avatar)
-//   })
-//   .catch(result => console.log(`${result} при загрузке данных пользователя`))
-//
-// api.getInitialCards()
-//   .then(data => renderList.renderItems(data))
-//   .catch(result => console.log(`${result} при загрузке карточек`))
-
 Promise.all([api.getUserData(), api.getInitialCards()])
   .then(([userData, cards]) => {
     userInfo.setUserInfo(userData.name, userData.about, userData._id);
@@ -174,8 +162,8 @@ Promise.all([api.getUserData(), api.getInitialCards()])
     return renderList;
   })
   .finally(function () {
-    const containerHidden = document.querySelector('.container_hidden');
-    containerHidden.classList.remove('container_hidden');
+    whileLoading.profile.style.display = 'flex';
+    whileLoading.loading.style.display = 'none';
   })
 
 profile.button.addEventListener('click', handlePopupAvatar);

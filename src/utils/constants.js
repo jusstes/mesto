@@ -1,4 +1,4 @@
-export { buttons, deletePopup, avatar, profile, validateConfig, popupsConfig, popupEditConfig, popupAddConfig, imagePreviewConfig, cardConfig };
+export { whileLoading, buttons, deletePopup, avatar, profile, validateConfig, popupsConfig, popupEditConfig, popupAddConfig, imagePreviewConfig, cardConfig };
 
 const validateConfig = {
   formSelector: '.form',
@@ -69,4 +69,9 @@ const buttons = {
   add: document.querySelector('.form__submit_type_add'),
   edit: document.querySelector('.form__submit_type_edit'),
   delete: document.querySelector('.form__submit_type_delete')
+}
+
+const whileLoading = {
+  profile: document.querySelector('.profile'),
+  loading: document.querySelector('.loading')
 }
