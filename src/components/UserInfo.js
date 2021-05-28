@@ -1,18 +1,29 @@
 export class UserInfo {
-  constructor(name, job) {
+  constructor(name, about, avatar) {
     this._name = name;
-    this._job = job;
+    this._about = about;
+    this._avatar = avatar;
   }
 
   getUserInfo() {
     return {
       name: this._name.textContent,
-      job: this._job.textContent
+      about: this._about.textContent,
+      id: this._id
     }
   }
 
-  setUserInfo(data) {
-    this._name.textContent = data.name;
-    this._job.textContent = data.job;
+  setUserInfo(name, about, id) {
+    this._name.textContent = name;
+    this._about.textContent = about;
+    this._id = id;
+  }
+
+  setUserAvatar(avatar) {
+    this._avatar.src = avatar;
+  }
+
+  getUserId() {
+    return this._id;
   }
 }

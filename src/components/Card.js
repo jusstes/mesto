@@ -1,13 +1,23 @@
+import {cardConfig} from "../utils/constants";
+
 export class Card {
-  constructor({name, link}, {handlePreviewImage}, cardConfig, templateSelector) {
-    this._templateElement = document.querySelector(templateSelector); 
+  constructor({name, link, likes, owner, _id}, {handlePreviewImage, handleDeleteCard, toggleLike}, cardConfig, templateSelector, userId) {
+    this._templateElement = document.querySelector(templateSelector);
+    this._element = this._getTemplate();
     this._image = link;
     this._title = name;
     this._cardImage = cardConfig.elementImage;
     this._cardTitle = cardConfig.elementTitle;
     this._cardLike = cardConfig.elementLike;
     this._cardDel = cardConfig.elementDel;
-    this._handlePreviewImage = handlePreviewImage;    
+    this._handlePreviewImage = handlePreviewImage;
+    this._likes = likes;
+    this._idElement = _id;
+    this._owner = owner._id;
+    this._userId = userId;
+    this._openPopupDelete = handleDeleteCard;
+    this._toggleLike = toggleLike;
+    this._likeCounter = this._element.querySelector(cardConfig.likeCounter)
   }
 
   _setEventListeners() {
@@ -17,12 +27,11 @@ export class Card {
   }
   
   _handleDeleteCard() {
-    this._element.remove();
-    this._element = null;
+    this._openPopupDelete(this._element);
   }
   
   _handleLikeCard() {
-    this._element.querySelector(this._cardLike).classList.toggle('element__button-like_active');
+    this._toggleLike(this._element);
   }
   
   _getTemplate() {
@@ -31,11 +40,20 @@ export class Card {
   }
   
   generateCard() {
-    this._element = this._getTemplate();
     this._setEventListeners();
     this._element.querySelector(this._cardImage).src = this._image;
     this._element.querySelector(this._cardImage).alt = this._title;
     this._element.querySelector(this._cardTitle).textContent = this._title;
+    this._likeCounter.textContent = this._likes.length;
+    this._element.id = this._idElement;
+    if(this._userId === this._owner) {
+      this._element.querySelector(this._cardDel).classList.add(cardConfig.elementDelVisible);
+    }
+    this._likes.forEach(like => {
+      if(like._id === this._userId) {
+        this._element.querySelector(this._cardLike).classList.add(cardConfig.LikeActive);
+      }
+    })
     return this._element;
   }
 }

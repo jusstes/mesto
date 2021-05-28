@@ -1,4 +1,4 @@
-export { validateConfig, popupsConfig, popupEditConfig, popupAddConfig, imagePreviewConfig, cardConfig };
+export { buttons, deletePopup, avatar, profile, validateConfig, popupsConfig, popupEditConfig, popupAddConfig, imagePreviewConfig, cardConfig };
 
 const validateConfig = {
   formSelector: '.form',
@@ -31,7 +31,7 @@ const popupAddConfig = {
 const popupEditConfig = {
   editPopup: document.querySelector('.popup_type_edit'),
   nameInput: document.querySelector('input[name="name"]'),
-  jobInput: document.querySelector('input[name="job"]'),
+  jobInput: document.querySelector('input[name="about"]'),
   formEdit: document.querySelector('.form_type_edit'),
   editBtn: document.querySelector('.profile__about-edit'),
   nameInfo: document.querySelector('.profile__about-name'),
@@ -48,6 +48,25 @@ const cardConfig = {
   elementImage: ('.element__image'),
   elementTitle: ('.element__title'),
   elementLike: ('.element__button-like'),
+  LikeActive: ('element__button-like_active'),
   elementDel: ('.element__button-delete'),
-  elementsContainer: document.querySelector('.elements')
+  elementDelVisible: ('element__button-delete_visible'),
+  elementsContainer: document.querySelector('.elements'),
+  likeCounter: ('.element__like-counter')
 };
+
+const profile = {
+  image: document.querySelector('.profile__image'),
+  button: document.querySelector('.profile__image-button')
+}
+
+const avatar = document.querySelector('.popup_type_avatar')
+
+const deletePopup = document.querySelector('.popup_type_delete')
+
+const buttons = {
+  avatar: document.querySelector('.form__submit_type_avatar'),
+  add: document.querySelector('.form__submit_type_add'),
+  edit: document.querySelector('.form__submit_type_edit'),
+  delete: document.querySelector('.form__submit_type_delete')
+}

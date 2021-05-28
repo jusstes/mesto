@@ -1,54 +1,130 @@
-import { initialCards } from '../utils/initial-сards.js';
-import { validateConfig, popupEditConfig, popupAddConfig, imagePreviewConfig, cardConfig } from '../utils/constants.js';
-import { Card } from '../components/Card.js';
-import { FormValidate } from '../components/FormValidate.js';
-import { Section } from '../components/Section.js';
-import { UserInfo } from '../components/UserInfo.js';
-import  { PopupWithImage } from '../components/PopupWithImage.js';
-import  { PopupWithForm } from '../components/PopupWithForm.js';
-
+import {
+  buttons,
+  deletePopup,
+  avatar,
+  profile,
+  validateConfig,
+  popupEditConfig,
+  popupAddConfig,
+  imagePreviewConfig,
+  cardConfig
+} from '../utils/constants.js';
+import {Card} from '../components/Card.js';
+import {FormValidate} from '../components/FormValidate.js';
+import {Section} from '../components/Section.js';
+import {UserInfo} from '../components/UserInfo.js';
+import {PopupWithImage} from '../components/PopupWithImage.js';
+import {PopupWithForm} from '../components/PopupWithForm.js';
+import {Api} from '../components/Api.js';
 import './index.css';
+import {PopupWithConfirm} from '../components/PopupWithConfirm.js';
 
 const formEditValidate = new FormValidate(validateConfig, popupEditConfig.editPopup);
 formEditValidate.enableValidation();
 const formAddValidate = new FormValidate(validateConfig, popupAddConfig.popupAdd);
 formAddValidate.enableValidation();
 
-const userInfo = new UserInfo(popupEditConfig.nameInfo, popupEditConfig.jobInfo);
+const userInfo = new UserInfo(popupEditConfig.nameInfo, popupEditConfig.jobInfo, profile.image);
 
 const popupImage = new PopupWithImage(imagePreviewConfig.photoModal);
 
 const popupAdd = new PopupWithForm(popupAddConfig.popupAdd, {
   submitHandler: (data) => {
-    const element = createCard({
-      name: data.place,
-      link: data.link
-    })
-    renderList.addItem(element, 'prepend');
+    buttons.add.textContent = 'Сохранение ...';
+    api.addCard(data.place, data.link)
+      .then(result => {
+        const addCard = createCard(result);
+        renderList.addItem(addCard, 'prepend');
+      })
+      .catch(result => console.log(`${result} при отправке карточки`))
+      // если закрыть попап после смены textContent в изначальное состояние, то на доли секунды
+      // это становится заметно. в то же время нет возможности поменять очередность. или я ошибаюсь?
+      .finally(() => {
+        buttons.add.textContent = 'Сохранить'
+      })
     popupAdd.close();
   }
 });
 
 const popupEdit = new PopupWithForm(popupEditConfig.editPopup, {
   submitHandler: (data) => {
-    userInfo.setUserInfo(data);
+    buttons.edit.textContent = 'Сохранение ...';
+    api.editUserData(data.name, data.about)
+      .then(result => {
+        userInfo.setUserInfo(result.name, result.about)
+      })
+      .catch(result => console.log(`${result} при отправке данных пользователя`))
+      .finally(() => {
+        buttons.edit.textContent = 'Сохранить'
+      })
     popupEdit.close();
   }
 });
 
-const renderList = new Section( {
-  items: initialCards,
+const popupAvatar = new PopupWithForm(avatar, {
+  submitHandler: (data => {
+    buttons.avatar.textContent = 'Сохранение ...';
+    api.updateAvatar(data.avatar)
+      .then(result => {
+        userInfo.setUserAvatar(result.avatar);
+      })
+      .catch(result => console.log(`${result} при обновлении аватара пользователя`))
+      .finally(() => {
+        buttons.avatar.textContent = 'Сохранить'
+      })
+    popupAvatar.close();
+  })
+})
+
+const popupDelete = new PopupWithConfirm(deletePopup, {
+  submitHandler: (cardId) => {
+    buttons.delete.textContent = 'Удаление ...';
+    api.deleteCard(popupDelete.cardId().id)
+      .then(() => {
+        popupDelete.cardId().remove();
+        popupDelete.close();
+      })
+      .catch(result => console.log(`${result} при удалении фотографии`))
+      .finally(() => {
+        buttons.delete.textContent = 'Сохранить'
+      })
+  }
+})
+
+const renderList = new Section({
   renderer: (item) => {
     const newElement = createCard(item);
     renderList.addItem(newElement, 'append');
-  }}, '.elements');
+  }
+}, '.elements');
 
 function createCard(item) {
+  const userId = userInfo.getUserId()
   const element = new Card(item, {
     handlePreviewImage: (link, alt) => {
       popupImage.open({link, alt});
+    },
+    handleDeleteCard: (cardId) => {
+      popupDelete.open(cardId)
+    },
+    toggleLike: (cardId) => {
+      if (cardId.querySelector(cardConfig.elementLike).classList.contains(cardConfig.LikeActive)) {
+        api.removeLikeCard(cardId.id)
+          .then((result) => {
+            cardId.querySelector(cardConfig.elementLike).classList.remove(cardConfig.LikeActive);
+            cardId.querySelector(cardConfig.likeCounter).textContent = result.likes.length;
+          })
+          .catch(result => console.log(`${result} при удалении лайка`))
+      } else {
+        api.addLikeCard(cardId.id)
+          .then((result) => {
+            cardId.querySelector(cardConfig.elementLike).classList.add(cardConfig.LikeActive);
+            cardId.querySelector(cardConfig.likeCounter).textContent = result.likes.length;
+          })
+          .catch(result => console.log(`${result} при удалении лайка`))
+      }
     }
-  }, cardConfig, '#template-element');
+  }, cardConfig, '#template-element', userId);
   const card = element.generateCard();
   return card;
 }
@@ -58,18 +134,56 @@ function handlePopupAdd() {
   popupAdd.open();
 }
 
+function handlePopupAvatar() {
+  popupAvatar.open();
+}
+
 function handlePopupEdit() {
   const profileInfo = userInfo.getUserInfo();
   popupEditConfig.nameInput.value = profileInfo.name;
-  popupEditConfig.jobInput.value = profileInfo.job;
+  popupEditConfig.jobInput.value = profileInfo.about;
   formEditValidate.clearValidationState();
   popupEdit.open();
 }
 
+const api = new Api({
+  address: 'https://mesto.nomoreparties.co/v1/cohort-24',
+  headers: {
+    authorization: 'bee39071-754c-4935-a369-72c9b603883d',
+    'Content-Type': 'application/json'
+  }
+})
+
+// этот способ рабочий, но мне не нравится экран без части данных, поэтому добавил Promise.all
+// api.getUserData()
+//   .then(data => {
+//     userInfo.setUserInfo(data.name, data.about);
+//     userInfo.setUserAvatar(data.avatar)
+//   })
+//   .catch(result => console.log(`${result} при загрузке данных пользователя`))
+//
+// api.getInitialCards()
+//   .then(data => renderList.renderItems(data))
+//   .catch(result => console.log(`${result} при загрузке карточек`))
+
+Promise.all([api.getUserData(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    userInfo.setUserInfo(userData.name, userData.about, userData._id);
+    userInfo.setUserAvatar(userData.avatar);
+    renderList.renderItems(cards)
+    return renderList;
+  })
+  .finally(function () {
+    const containerHidden = document.querySelector('.container_hidden');
+    containerHidden.classList.remove('container_hidden');
+  })
+
+profile.button.addEventListener('click', handlePopupAvatar);
 popupAddConfig.addButton.addEventListener('click', handlePopupAdd);
 popupEditConfig.editBtn.addEventListener('click', handlePopupEdit);
 
-renderList.renderItems();
+popupAvatar.setEventListeners();
 popupAdd.setEventListeners();
 popupEdit.setEventListeners();
 popupImage.setEventListeners();
+popupDelete.setEventListeners();

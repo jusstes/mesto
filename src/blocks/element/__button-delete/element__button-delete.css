@@ -1,4 +1,5 @@
 .element__button-delete {
+    visibility: hidden;
     position: absolute;
     background-image: url('../../../images/bin.svg');
     background-color: transparent;
