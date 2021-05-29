@@ -73,5 +73,6 @@ const buttons = {
 
 const whileLoading = {
   profile: document.querySelector('.profile'),
-  loading: document.querySelector('.loading')
+  loading: document.querySelector('.loading'),
+  footer: document.querySelector('.footer__copyright')
 }
