@@ -8,6 +8,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    max-width: 290px
+    max-width: 290px;
   }
 }

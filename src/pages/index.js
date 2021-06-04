@@ -1,4 +1,5 @@
 import {
+  whileLoading,
   buttons,
   deletePopup,
   avatar,
@@ -23,6 +24,8 @@ const formEditValidate = new FormValidate(validateConfig, popupEditConfig.editPo
 formEditValidate.enableValidation();
 const formAddValidate = new FormValidate(validateConfig, popupAddConfig.popupAdd);
 formAddValidate.enableValidation();
+const formAvatarValidate = new FormValidate(validateConfig, avatar)
+formAvatarValidate.enableValidation();
 
 const userInfo = new UserInfo(popupEditConfig.nameInfo, popupEditConfig.jobInfo, profile.image);
 
@@ -35,14 +38,12 @@ const popupAdd = new PopupWithForm(popupAddConfig.popupAdd, {
       .then(result => {
         const addCard = createCard(result);
         renderList.addItem(addCard, 'prepend');
+        popupAdd.close();
       })
       .catch(result => console.log(`${result} при отправке карточки`))
-      // если закрыть попап после смены textContent в изначальное состояние, то на доли секунды
-      // это становится заметно. в то же время нет возможности поменять очередность. или я ошибаюсь?
       .finally(() => {
         buttons.add.textContent = 'Сохранить'
       })
-    popupAdd.close();
   }
 });
 
@@ -52,12 +53,12 @@ const popupEdit = new PopupWithForm(popupEditConfig.editPopup, {
     api.editUserData(data.name, data.about)
       .then(result => {
         userInfo.setUserInfo(result.name, result.about)
+        popupEdit.close()
       })
       .catch(result => console.log(`${result} при отправке данных пользователя`))
       .finally(() => {
         buttons.edit.textContent = 'Сохранить'
       })
-    popupEdit.close();
   }
 });
 
@@ -67,12 +68,12 @@ const popupAvatar = new PopupWithForm(avatar, {
     api.updateAvatar(data.avatar)
       .then(result => {
         userInfo.setUserAvatar(result.avatar);
+        popupAvatar.close();
       })
       .catch(result => console.log(`${result} при обновлении аватара пользователя`))
       .finally(() => {
         buttons.avatar.textContent = 'Сохранить'
       })
-    popupAvatar.close();
   })
 })
 
@@ -86,7 +87,7 @@ const popupDelete = new PopupWithConfirm(deletePopup, {
       })
       .catch(result => console.log(`${result} при удалении фотографии`))
       .finally(() => {
-        buttons.delete.textContent = 'Сохранить'
+        buttons.delete.textContent = 'Да'
       })
   }
 })
@@ -110,17 +111,11 @@ function createCard(item) {
     toggleLike: (cardId) => {
       if (cardId.querySelector(cardConfig.elementLike).classList.contains(cardConfig.LikeActive)) {
         api.removeLikeCard(cardId.id)
-          .then((result) => {
-            cardId.querySelector(cardConfig.elementLike).classList.remove(cardConfig.LikeActive);
-            cardId.querySelector(cardConfig.likeCounter).textContent = result.likes.length;
-          })
+          .then(result => element.removeLike(cardId, result.likes))
           .catch(result => console.log(`${result} при удалении лайка`))
       } else {
         api.addLikeCard(cardId.id)
-          .then((result) => {
-            cardId.querySelector(cardConfig.elementLike).classList.add(cardConfig.LikeActive);
-            cardId.querySelector(cardConfig.likeCounter).textContent = result.likes.length;
-          })
+          .then(result => element.addLike(cardId, result.likes))
           .catch(result => console.log(`${result} при удалении лайка`))
       }
     }
@@ -135,6 +130,7 @@ function handlePopupAdd() {
 }
 
 function handlePopupAvatar() {
+  formAvatarValidate.clearValidationState();
   popupAvatar.open();
 }
 
@@ -154,18 +150,6 @@ const api = new Api({
   }
 })
 
-// этот способ рабочий, но мне не нравится экран без части данных, поэтому добавил Promise.all
-// api.getUserData()
-//   .then(data => {
-//     userInfo.setUserInfo(data.name, data.about);
-//     userInfo.setUserAvatar(data.avatar)
-//   })
-//   .catch(result => console.log(`${result} при загрузке данных пользователя`))
-//
-// api.getInitialCards()
-//   .then(data => renderList.renderItems(data))
-//   .catch(result => console.log(`${result} при загрузке карточек`))
-
 Promise.all([api.getUserData(), api.getInitialCards()])
   .then(([userData, cards]) => {
     userInfo.setUserInfo(userData.name, userData.about, userData._id);
@@ -173,9 +157,11 @@ Promise.all([api.getUserData(), api.getInitialCards()])
     renderList.renderItems(cards)
     return renderList;
   })
+  .catch(result => console.log(`${result} при загрузке данных`))
   .finally(function () {
-    const containerHidden = document.querySelector('.container_hidden');
-    containerHidden.classList.remove('container_hidden');
+    whileLoading.profile.style.display = 'flex';
+    whileLoading.footer.style.display = 'flex';
+    whileLoading.loading.style.display = 'none';
   })
 
 profile.button.addEventListener('click', handlePopupAvatar);
